@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>For Rupsana Jii ❤️</title>
+    <style>
+        body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: linear-gradient(135deg, #ffeef2, #ffccd5); font-family: 'Segoe UI', sans-serif; text-align: center; }
+        #container { width: 90%; max-width: 500px; padding: 40px; background: white; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+        h1 { color: #590d22; }
+        button { padding: 15px 30px; font-size: 18px; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; margin: 10px; font-weight: bold; }
+        #yesBtn { background-color: #ff4d6d; color: white; }
+        #noBtn { background-color: #808080; color: white; }
+        .hidden { display: none !important; }
+
+        /* Proposal Section */
+        .proposal-text { font-size: 20px; color: #590d22; margin-bottom: 20px; line-height: 1.6; }
+        .promise-text { font-size: 18px; color: #ff4d6d; font-style: italic; margin-bottom: 20px; }
+
+        /* Storybook Styles */
+        .story-title { color: #ff4d6d; font-size: 24px; margin-bottom: 15px; }
+        .story-text { font-size: 19px; color: #333; line-height: 1.7; min-height: 120px; }
+        
+        /* Final Reveal */
+        #finalMessage { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ff4d6d; color: white; flex-direction: column; justify-content: center; align-items: center; z-index: 100; }
+        .big-text { font-size: 50px; font-weight: bold; padding: 20px; }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div id="questionArea">
+            <h1>Rupsana Jii, do you love me?</h1>
+            <button id="yesBtn" onclick="showProposal()">Yes</button>
+            <button id="noBtn" onclick="handleNo()">No</button>
+        </div>
+
+        <div id="proposalArea" class="hidden">
+            <h1>I knew you'd say Yes! 💖</h1>
+            <p class="proposal-text">You have made me the happiest person. I want to spend every heartbeat with you.</p>
+            <p class="promise-text">"I promise to respect you, to always be your support, and to never let your smile fade away. Will you be mine forever?"</p>
+            <button onclick="startStory()" style="background:#590d22; color:white;">Read Our Story ✨</button>
+        </div>
+
+        <div id="storyArea" class="hidden">
+            <h2 id="storyTitle" class="story-title"></h2>
+            <p id="storyText" class="story-text"></p>
+            <button id="nextBtn" onclick="nextPage()" style="background:#ff4d6d; color:white;">Next Page →</button>
+        </div>
+    </div>
+
+    <div id="finalMessage">
+        <div class="big-text">I LOVE YOU SOOO MUCH! ❤️✨</div>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        let page = 0;
+        const messages = ["Are you sure?", "Really sure??", "Think again! 🥺", "Please? ❤️", "Don't do this to me...", "Last chance!"];
+        
+        const storyPages = [
+            { title: "The First Sight", text: "It all started during our college visit. I don't remember the place, but your smile is something I will never forget." },
+            { title: "Deepening Respect", text: "When you told me you weren't into relationships, my respect for you grew immensely. I realized then that you are a woman of principles." },
+            { title: "Falling for You", text: "Your smile became my favorite view, and your happiness my priority. I didn't even realize when I fell for you." },
+            { title: "My Promise", text: "I promise to always treat you with respect, never cheat, and love you endlessly. You are my forever." }
+        ];
+
+        function handleNo() {
+            clickCount++;
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            yesBtn.style.fontSize = (18 + (clickCount * 25)) + 'px';
+            yesBtn.style.padding = (15 + clickCount * 6) + 'px ' + (30 + clickCount * 12) + 'px';
+            if (clickCount >= 6) noBtn.classList.add('hidden');
+            else noBtn.innerText = messages[clickCount - 1];
+        }
+
+        function showProposal() {
+            document.getElementById('questionArea').classList.add('hidden');
+            document.getElementById('proposalArea').classList.remove('hidden');
+        }
+
+        function startStory() {
+            document.getElementById('proposalArea').classList.add('hidden');
+            document.getElementById('storyArea').classList.remove('hidden');
+            updateStory();
+        }
+
+        function updateStory() {
+            document.getElementById('storyTitle').innerText = storyPages[page].title;
+            document.getElementById('storyText').innerText = storyPages[page].text;
+        }
+
+        function nextPage() {
+            page++;
+            if(page < storyPages.length) updateStory();
+            else {
+                document.getElementById('container').classList.add('hidden');
+                document.getElementById('finalMessage').style.display = 'flex';
+            }
+        }
+    </script>
+</body>
+</html>
